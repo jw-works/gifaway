@@ -1,12 +1,88 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator");
+const User = require("../../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
-//@route GET api/users
-//@desc Test Route
+//@route GET api/auth
+//@desc Get the user details using JWT Token
 //@access Public
 
-router.get("/", (req, res) => {
-  res.json({ msg: "Auth Route" });
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.send(500).send("Server Error");
+  }
 });
+
+//@route POST api/auth
+//@desc User authentication
+//@access Public
+
+router.post(
+  "/",
+  [
+    //Check if username is entered
+    check("username", "Please enter your username")
+      .not()
+      .isEmpty(),
+
+    //Check if password is entered
+    check("password", "Please enter your password")
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    //Handle errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { username, password } = req.body;
+    try {
+      let user = await User.findOne({ username });
+
+      if (!user) {
+        return res.status(400).json({
+          errors: [{ msg: "Invalid credentials" }]
+        });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        return res.status(400).json({
+          errors: [{ msg: "Invalid credentials" }]
+        });
+      }
+
+      //Return JW Token
+      const payload = {
+        user: {
+          id: user.id
+        }
+      };
+
+      jwt.sign(
+        payload,
+        config.get("secret"),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 module.exports = router;
