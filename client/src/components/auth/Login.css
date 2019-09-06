@@ -1,0 +1,11 @@
+.Login .title {
+  font-family: "Hind", sans-serif;
+}
+
+@media (min-width: 768px) {
+  .Login {
+    width: 50% !important;
+    border: 1px gainsboro solid;
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,10 @@
+.Register .title h1 {
+  font-family: "Hind", sans-serif;
+}
+
+@media (min-width: 768px) {
+  .Register {
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+  }
+}
