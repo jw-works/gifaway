@@ -1,0 +1,21 @@
+.Landing {
+  height: 90vh;
+}
+
+.Landing h1 {
+  font-family: "Cookie", cursive;
+  font-size: 9rem;
+  color: white;
+}
+
+.Landing p {
+  font-family: "Hind", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .Landing h1 {
+    font-size: 7rem;
+  }
+}
