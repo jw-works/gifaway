@@ -32,12 +32,13 @@ router.post(
     const { gif } = req.body;
 
     try {
-      const user = await User.findById(req.id).select("-password");
+      const user = await User.findById(req.user.id).select("-password");
 
       const newPost = new Post({
         title: req.body.title,
         body: req.body.body,
-        user: req.user.id
+        user: req.user.id,
+        name: user.username
       });
 
       if (gif) newPost.gif = gif;

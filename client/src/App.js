@@ -5,6 +5,11 @@ import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
+import Dairy from "./components/dairy/Dairy";
+import Posts from "./components/posts/Posts";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import EditStatus from "./components/dairy/EditStatus";
+import SetStatus from "./components/dairy/SetStatus";
 
 //Redux imports
 import { Provider } from "react-redux";
@@ -33,6 +38,10 @@ const App = () => {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <PrivateRoute exact path="/diary" component={Dairy} />
+            <PrivateRoute exact path="/edit-status" component={EditStatus} />
+            <Route exact path="/set-status" component={SetStatus} />
+            <Route exact path="/explore" component={Posts} />
           </Switch>
         </Fragment>
       </Router>

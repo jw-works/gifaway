@@ -9,20 +9,6 @@ const ProfileSchema = new mongoose.Schema({
   phrase: {
     type: String,
     required: true
-  },
-  social: {
-    facebook: {
-      type: String
-    },
-    instagram: {
-      type: String
-    },
-    tumblr: {
-      type: String
-    },
-    blog: {
-      type: String
-    }
   }
 });
 

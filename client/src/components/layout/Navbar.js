@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -15,17 +15,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
       <li className="nav-item">
         <Link className="nav-link" to="/diary">
-          Your Diary
+          My Diary
         </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" onClick={logout}>
+        <Link className="nav-link" to="#!" onClick={logout}>
           Logout
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/about">
-          About
         </Link>
       </li>
     </ul>

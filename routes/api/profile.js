@@ -19,7 +19,7 @@ router.get("/me", authMiddleware, async (req, res) => {
     );
 
     if (!profile) {
-      return res.json({ msg: "There is not profile for this user" });
+      return res.json(null);
     }
 
     res.json(profile);
@@ -52,16 +52,11 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: [errors.array()] });
     }
-    const { phrase, facebook, instagram, tumblr, blog } = req.body;
+    const { phrase } = req.body;
 
     const profileFields = {};
     profileFields.user = req.user.id;
     profileFields.phrase = phrase;
-    profileFields.social = {};
-    if (facebook) profileFields.social.facebook = facebook;
-    if (instagram) profileFields.social.instagram = instagram;
-    if (tumblr) profileFields.social.tumblr = tumblr;
-    if (blog) profileFields.social.blog = blog;
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
@@ -76,8 +71,6 @@ router.post(
 
         return res.json(profile);
       }
-
-      console.log(profile);
 
       //Create New Profile
       profile = new Profile(profileFields);
