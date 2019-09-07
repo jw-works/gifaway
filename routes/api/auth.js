@@ -29,7 +29,7 @@ router.post(
   "/",
   [
     //Check if username is entered
-    check("username", "Please enter your username")
+    check("email", "Please enter your email")
       .not()
       .isEmpty(),
 
@@ -44,9 +44,9 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-      let user = await User.findOne({ username });
+      let user = await User.findOne({ email });
 
       if (!user) {
         return res.status(400).json({

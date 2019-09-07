@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import "./Login.css";
 
-const Login = () => {
+//Redux Imports
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -19,20 +25,25 @@ const Login = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log("Successfully Logged In");
+    login(email, password);
   };
 
+  //redirect if Authenticated/Logged in
+  if (isAuthenticated) {
+    return <Redirect to="/diary"></Redirect>;
+  }
+
   return (
-    <div class="container mt-md-5 Login mt-5 p-3">
+    <div className="container mt-md-5 Login mt-2 p-3">
       <div className="container text-center mb-3 title">
         <h1>Login</h1>
       </div>
       <form onSubmit={e => onSubmit(e)}>
-        <div class="form-group">
-          <label for="email">Email address</label>
+        <div className="form-group">
+          <label htmlFor="email">Email address</label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="email"
             placeholder="Enter email"
             name="email"
@@ -40,11 +51,11 @@ const Login = () => {
             onChange={e => onChange(e)}
           />
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="password"
             placeholder="Password"
             name="password"
@@ -53,15 +64,27 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Login
         </button>
       </form>
-      <div class="container mt-3 text-center">
+      <div className="container mt-3 text-center">
         <Link to="/register">New to Gifoetry? Click here to register</Link>
       </div>
     </div>
   );
 };
 
-export default Login;
+Login.protoTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);
