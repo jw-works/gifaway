@@ -27,7 +27,7 @@ const Login = () => {
       <div className="container text-center mb-3 title">
         <h1>Login</h1>
       </div>
-      <form>
+      <form onSubmit={e => onSubmit(e)}>
         <div class="form-group">
           <label for="email">Email address</label>
           <input
