@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { likePost, unlikePost } from "../../actions/post";
+import { likePost, unlikePost, deletePost } from "../../actions/post";
 
 const PostItem = ({
+  deletePost,
   likePost,
   unlikePost,
   history,
@@ -14,7 +15,7 @@ const PostItem = ({
 }) => {
   const onClickRedirect = e => {
     e.preventDefault();
-    likePost(_id, history, false);
+    likePost(null, history, false);
   };
 
   const onClickLike = e => {
@@ -35,50 +36,59 @@ const PostItem = ({
     }
   };
 
+  const delete_post = () => {
+    deletePost(_id);
+    window.location.reload();
+  };
+
   if (gif) {
     return (
       <Fragment>
-        <div class="card PostItem">
-          <img src={gif} class="card-img-top" alt="..." />
-          <div class="card-body">
+        <div className="card PostItem">
+          <img src={gif} className="card-img-top" alt="..." />
+          <div className="card-body">
             <div className="container p-0 m-0 d-flex flex-row justify-content-between">
-              <h5 class="card-title">{title}</h5>
+              <h5 className="card-title">{title}</h5>
               {!auth.loading && auth.isAuthenticated
                 ? user === auth.user._id && (
                     <div>
                       {" "}
-                      <i class="fas fa-edit"></i>{" "}
-                      <i class="far fa-trash-alt"></i>
+                      <i className="fas fa-edit"></i>{" "}
+                      <i
+                        className="far fa-trash-alt"
+                        onClick={delete_post}
+                        style={{ cursor: "pointer" }}
+                      ></i>
                     </div>
                   )
                 : null}
             </div>
-            <p class="card-text">{body}</p>
-            <footer class="blockquote-footer mb-2 text-right">
+            <p className="card-text">{body}</p>
+            <footer className="blockquote-footer mb-2 text-right">
               <small>
                 Posted by <cite title="Source Title">{name}</cite>
               </small>
             </footer>
-            <p class="card-text d-flex flex-row justify-content-between">
-              <small class="text-muted">
+            <p className="card-text d-flex flex-row justify-content-between">
+              <small className="text-muted">
                 {likes.length} people felt this post | Posted on{" "}
                 <Moment format="DD/MM">{date}</Moment>
               </small>
-              <small class="text-muted">
+              <small className="text-muted">
                 {!auth.loading && !auth.isAuthenticated ? (
                   <button className="btn btn-light" onClick={onClickRedirect}>
-                    <i class="far fa-heart"></i>
+                    <i className="far fa-heart"></i>
                   </button>
                 ) : !auth.loading &&
                   auth.isAuthenticated &&
                   likes.filter(like => like.user === auth.user._id).length >
                     0 ? (
                   <button className="btn btn-light" onClick={onClickUnlike}>
-                    <i class="fas fa-heart"></i>
+                    <i className="fas fa-heart"></i>
                   </button>
                 ) : (
                   <button className="btn btn-light" onClick={onClickLike}>
-                    <i class="far fa-heart"></i>
+                    <i className="far fa-heart"></i>
                   </button>
                 )}
               </small>
@@ -145,7 +155,8 @@ PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
-  unlikePost: PropTypes.func.isRequired
+  unlikePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -154,5 +165,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { likePost, unlikePost }
+  { likePost, unlikePost, deletePost }
 )(withRouter(PostItem));
