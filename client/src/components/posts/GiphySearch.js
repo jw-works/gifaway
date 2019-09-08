@@ -46,7 +46,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(gif, title, body);
+    console.log({ gif, title, body });
   };
 
   return (
@@ -101,6 +101,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
               value={gif}
               name="gif"
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -113,6 +114,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
               value={title}
               name="title"
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -124,6 +126,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
               value={body}
               name="body"
               onChange={onChange}
+              required
             ></textarea>
           </div>
           <div className="container-fluid m-0 p-0 text-center text-md-left">

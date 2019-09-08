@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FETCH_GIFS, FETCH_ERROR } from "./types";
+import setAuthToken from "../utils/setAuthToken";
 
 //Get Gifs
 export const getGifs = searchTerm => async dispatch => {
@@ -11,6 +12,8 @@ export const getGifs = searchTerm => async dispatch => {
     const res = await axios.get(
       `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${api_key}&limit=5`
     );
+
+    setAuthToken(localStorage.token);
 
     dispatch({
       type: FETCH_GIFS,

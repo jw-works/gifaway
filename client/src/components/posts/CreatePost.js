@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
 import GiphySearch from "./GiphySearch";
+import { connect } from "react-redux";
+import { createPost } from "../../actions/post";
+import PropTypes from "prop-types";
 
-const CreatePost = () => {
+const CreatePost = ({ createPost }) => {
   const [state, setstate] = useState({
     searchGif: false,
     gif: "",
@@ -29,7 +31,10 @@ const CreatePost = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(gif, title, body);
+    if (gif) {
+      createPost({ gif, title, body });
+    }
+    createPost({ title, body });
   };
 
   return !searchGif ? (
@@ -52,10 +57,9 @@ const CreatePost = () => {
             />
           </div>
           <small id="gif" className="form-text text-muted mb-3">
-            You can paste any gif media link.{" "}
-            <Link to="/post-help">Click here</Link> for help on how to find gif
-            links. Alternatively, you can also use the button below to search
-            for gifs (beta feature).
+            This is optional and you can paste any gif media link.{" "}
+            Alternatively, you can also use the Search Gifs button below to
+            search for gifs (beta feature).
           </small>
           <div className="container-fluid mb-3 p-0 text-center text-md-left">
             <button className="btn btn-primary" onClick={onClick}>
@@ -72,6 +76,7 @@ const CreatePost = () => {
               value={title}
               name="title"
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -83,6 +88,7 @@ const CreatePost = () => {
               value={body}
               name="body"
               onChange={onChange}
+              required
             ></textarea>
           </div>
           <div className="container-fluid m-0 p-0 text-center text-md-left">
@@ -96,4 +102,11 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+CreatePost.protoTypes = {
+  createPost: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { createPost }
+)(CreatePost);

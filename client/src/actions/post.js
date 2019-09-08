@@ -69,3 +69,23 @@ export const unlikePost = (
     }
   }
 };
+
+//Create a post
+export const createPost = formData => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    await axios.post("/api/posts/", formData, config);
+
+    getPosts();
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
