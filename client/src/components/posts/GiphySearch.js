@@ -1,9 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { getGifs } from "../../actions/giphy";
+import { createPost } from "../../actions/post";
 import PropTypes from "prop-types";
 
-const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
+const GiphySearch = ({
+  giphy: { giphyResults, loading },
+  getGifs,
+  createPost
+}) => {
   const [state, setstate] = useState({
     showGifs: true,
     searchTerm: "",
@@ -46,7 +51,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log({ gif, title, body });
+    createPost({ gif, title, body });
   };
 
   return (
@@ -79,7 +84,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
               : showGifs
               ? giphyResults.map(gif => (
                   <img
-                    src={gif.images.fixed_height.url}
+                    src={gif.images.fixed_width.url}
                     alt="gif"
                     key={gif.id}
                     className="m-2"
@@ -140,6 +145,7 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
 
 GiphySearch.propTypes = {
   getGifs: PropTypes.func.isRequired,
+  createPost: PropTypes.func.isRequired,
   giphy: PropTypes.object.isRequired
 };
 
@@ -149,5 +155,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getGifs }
+  { getGifs, createPost }
 )(GiphySearch);
