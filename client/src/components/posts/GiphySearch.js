@@ -5,13 +5,14 @@ import PropTypes from "prop-types";
 
 const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
   const [state, setstate] = useState({
+    showGifs: true,
     searchTerm: "",
     gif: "",
     title: "",
     body: ""
   });
 
-  const { searchTerm, title, body, gif } = state;
+  const { showGifs, searchTerm, title, body, gif } = state;
 
   const onChange = e => {
     e.preventDefault();
@@ -23,7 +24,24 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
 
   const onClick = e => {
     e.preventDefault();
-    getGifs(searchTerm);
+    if (searchTerm !== "") {
+      getGifs(searchTerm);
+    }
+    setstate({
+      ...state,
+      showGifs: true,
+      gif: "",
+      searchTerm: ""
+    });
+  };
+
+  const selectGif = (e, gif) => {
+    e.preventDefault();
+    setstate({
+      ...state,
+      showGifs: false,
+      gif
+    });
   };
 
   const onSubmit = e => {
@@ -55,10 +73,11 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
               Search
             </button>
           </div>
-          <div className="container d-flex flex-wrap flex-row">
+          <div className="container d-flex flex-wrap flex-row justify-content-center">
             {giphyResults.length === 0
               ? null
-              : giphyResults.map(gif => (
+              : showGifs
+              ? giphyResults.map(gif => (
                   <img
                     src={gif.images.fixed_height.url}
                     alt="gif"
@@ -67,8 +86,10 @@ const GiphySearch = ({ giphy: { giphyResults, loading }, getGifs }) => {
                     width="150px"
                     height="150px"
                     style={{ objectFit: "cover" }}
+                    onClick={e => selectGif(e, gif.images.fixed_height.url)}
                   />
-                ))}
+                ))
+              : null}
           </div>
           <div className="form-group mt-3">
             <label htmlFor="gif">Gif URL</label>

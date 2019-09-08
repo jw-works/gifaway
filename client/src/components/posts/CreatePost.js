@@ -27,17 +27,22 @@ const CreatePost = () => {
     });
   };
 
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(gif, title, body);
+  };
+
   return !searchGif ? (
     <Fragment>
       <div className="container mt-5 mb-5">
         <div className="container text-center mb-5">
           <h1 className="display-4">Create Post</h1>
         </div>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="gif">GIF URL</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="gif"
               placeholder="Gif media url"
@@ -60,7 +65,7 @@ const CreatePost = () => {
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="title"
               placeholder="Post Title"
