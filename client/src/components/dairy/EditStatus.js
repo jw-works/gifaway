@@ -19,7 +19,7 @@ const EditSatus = ({
     setstate({
       phrase: loading || !profile.phrase ? "" : profile.phrase
     });
-  }, []);
+  }, [getCurrentProfile, loading, profile.phrase]);
 
   const { phrase } = state;
 

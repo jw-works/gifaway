@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -13,7 +13,7 @@ const Dairy = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   return loading && profile === null ? (
     <Spinner />
@@ -25,16 +25,22 @@ const Dairy = ({
           {profile !== null ? (
             <p className="mt-3">
               {profile.phrase} <br />
-              <Link className="btn btn-primary mt-2" to="/edit-status">
+              <Link className="btn btn-primary m-2" to="/edit-status">
                 Edit Status
+              </Link>
+              <Link className="btn btn-primary m-2" to="/create-post">
+                Create Post
               </Link>
             </p>
           ) : (
             <div>
               <p>
                 You do not have a status. <br />
-                <Link className="btn btn-primary mt-2" to="/set-status">
+                <Link className="btn btn-primary m-2" to="/create-post">
                   Set Status
+                </Link>
+                <Link className="btn btn-primary m-2" to="/create-post">
+                  Create Post
                 </Link>
               </p>
             </div>

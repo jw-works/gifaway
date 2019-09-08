@@ -7,6 +7,7 @@ import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import Dairy from "./components/dairy/Dairy";
 import Posts from "./components/posts/Posts";
+import CreatePost from "./components/posts/CreatePost";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import EditStatus from "./components/dairy/EditStatus";
 import SetStatus from "./components/dairy/SetStatus";
@@ -40,6 +41,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <PrivateRoute exact path="/diary" component={Dairy} />
             <PrivateRoute exact path="/edit-status" component={EditStatus} />
+            <PrivateRoute exact path="/create-post" component={CreatePost} />
             <Route exact path="/set-status" component={SetStatus} />
             <Route exact path="/explore" component={Posts} />
           </Switch>

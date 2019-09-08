@@ -14,3 +14,5 @@ export const GET_POSTS = "GET_POSTS";
 export const POST_ERROR = "POST_ERROR";
 export const ADD_LIKE = "ADD_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
+export const FETCH_GIFS = "FETCH_GIFS";
+export const FETCH_ERROR = "FETCH_ERROR";
