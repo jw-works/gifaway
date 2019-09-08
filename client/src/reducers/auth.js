@@ -37,7 +37,12 @@ export default function(state = initialState, action) {
 
     case AUTH_ERROR:
       localStorage.removeItem("token");
-      return { ...state, loading: false, token: null, isAuthenticated: false };
+      return {
+        ...state,
+        loading: false,
+        token: null,
+        isAuthenticated: false
+      };
 
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
@@ -45,11 +50,22 @@ export default function(state = initialState, action) {
 
     case LOGIN_FAIL:
       localStorage.removeItem("token");
-      return { ...state, loading: false, token: null, isAuthenticated: false };
+      return {
+        ...state,
+        loading: false,
+        token: null,
+        isAuthenticated: false
+      };
 
     case LOGOUT:
       localStorage.removeItem("token");
-      return { ...state, loading: false, token: null, isAuthenticated: false };
+      return {
+        ...state,
+        loading: false,
+        token: null,
+        isAuthenticated: false,
+        user: null
+      };
 
     default:
       return state;

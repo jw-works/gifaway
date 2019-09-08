@@ -1,6 +1,5 @@
-import { GET_POSTS, POST_ERROR } from "../actions/types";
+import { GET_POSTS, POST_ERROR, ADD_LIKE, REMOVE_LIKE } from "../actions/types";
 import axios from "axios";
-import setAlert from "./alert";
 
 //Get Posts
 export const getPosts = () => async dispatch => {
@@ -16,5 +15,57 @@ export const getPosts = () => async dispatch => {
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status }
     });
+  }
+};
+
+//Like Post
+export const likePost = (
+  postId,
+  history,
+  isAuthenticated = true
+) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/like/${postId}`);
+
+    dispatch({
+      type: ADD_LIKE,
+      payload: { postId, likes: res.data }
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+    if (!isAuthenticated) {
+      history.push("/login");
+    }
+  }
+};
+
+//Unlike post
+export const unlikePost = (
+  postId,
+  history,
+  isAuthenticated = true
+) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/posts/unlike/${postId}`);
+
+    if (!isAuthenticated) {
+      history.push("/login");
+    } else {
+      dispatch({
+        type: REMOVE_LIKE,
+        payload: { postId, likes: res.data }
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+    if (!isAuthenticated) {
+      history.push("/login");
+    }
   }
 };

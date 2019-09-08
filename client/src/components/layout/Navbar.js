@@ -6,6 +6,12 @@ import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+  const onClick = e => {
+    e.preventDefault();
+    logout();
+    window.location.reload();
+  };
+
   const authLinks = (
     <ul className="navbar-nav ml-auto text-center">
       <li className="nav-item">
@@ -19,7 +25,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="#!" onClick={logout}>
+        <Link className="nav-link" to="#!" onClick={onClick}>
           Logout
         </Link>
       </li>
