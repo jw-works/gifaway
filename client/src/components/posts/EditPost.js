@@ -40,16 +40,39 @@ const EditPost = ({
   const [state, setstate] = useState({
     gif: "",
     title: "",
-    body: ""
+    body: "",
+    titleCharLeft: "",
+    bodyCharLeft: ""
   });
 
-  const { title, gif, body } = state;
+  const { title, gif, body, titleCharLeft, bodyCharLeft } = state;
 
   const onChange = e => {
-    e.preventDefault();
     setstate({
       ...state,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const titleOnChange = e => {
+    let lettersLeftCount = titleCharLeft;
+    const currentLetterCount = e.target.value.length;
+    lettersLeftCount = 50 - currentLetterCount;
+    setstate({
+      ...state,
+      title: e.target.value,
+      titleCharLeft: lettersLeftCount
+    });
+  };
+
+  const bodyOnChange = e => {
+    let lettersLeftCount = bodyCharLeft;
+    const currentLetterCount = e.target.value.length;
+    lettersLeftCount = 150 - currentLetterCount;
+    setstate({
+      ...state,
+      body: e.target.value,
+      bodyCharLeft: lettersLeftCount
     });
   };
 
@@ -103,9 +126,11 @@ const EditPost = ({
               placeholder="Post Title"
               value={title}
               name="title"
-              onChange={onChange}
+              onChange={titleOnChange}
               required
+              maxLength="50"
             />
+            <p className="text-right">Characters left: {titleCharLeft}</p>
           </div>
           <div className="form-group">
             <label htmlFor="body">Body</label>
@@ -113,11 +138,14 @@ const EditPost = ({
               className="form-control"
               id="body"
               rows="3"
+              placeholder="Post Content"
               value={body}
               name="body"
-              onChange={onChange}
+              onChange={bodyOnChange}
               required
+              maxLength="150"
             ></textarea>
+            <p className="text-right">Characters left: {bodyCharLeft}</p>
           </div>
           <div className="container-fluid m-0 p-0 text-center text-md-left">
             <button className="btn btn-primary">Save changes</button>

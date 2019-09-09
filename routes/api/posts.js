@@ -127,7 +127,7 @@ router.get("/:page", async (req, res) => {
       {},
       {
         page: `${req.params.page}`,
-        limit: 5,
+        limit: 6,
         sort: { date: -1 }
       }
     );

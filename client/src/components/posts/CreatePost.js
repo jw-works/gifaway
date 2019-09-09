@@ -10,16 +10,37 @@ const CreatePost = ({ createPost, history }) => {
     searchGif: false,
     gif: "",
     title: "",
-    body: ""
+    body: "",
+    titleCharLeft: 50,
+    bodyCharLeft: 150
   });
 
-  const { searchGif, gif, title, body } = state;
+  const { searchGif, gif, title, body, titleCharLeft, bodyCharLeft } = state;
 
-  const onChange = e => {
-    e.preventDefault();
+  const gifOnChange = e => {
     setstate({
       ...state,
-      [e.target.name]: e.target.value
+      gif: e.target.value
+    });
+  };
+
+  const titleOnChange = e => {
+    const currentLetterCount = e.target.value.length;
+    const lettersLeftCount = 50 - currentLetterCount;
+    setstate({
+      ...state,
+      title: e.target.value,
+      titleCharLeft: lettersLeftCount
+    });
+  };
+
+  const bodyOnChange = e => {
+    const currentLetterCount = e.target.value.length;
+    const lettersLeftCount = 150 - currentLetterCount;
+    setstate({
+      ...state,
+      body: e.target.value,
+      bodyCharLeft: lettersLeftCount
     });
   };
 
@@ -55,7 +76,7 @@ const CreatePost = ({ createPost, history }) => {
               placeholder="Gif media url"
               value={gif}
               name="gif"
-              onChange={onChange}
+              onChange={gifOnChange}
             />
           </div>
           <small id="gif" className="form-text text-muted mb-3">
@@ -77,9 +98,11 @@ const CreatePost = ({ createPost, history }) => {
               placeholder="Post Title"
               value={title}
               name="title"
-              onChange={onChange}
+              onChange={titleOnChange}
               required
+              maxLength="50"
             />
+            <p className="text-right">Characters left: {titleCharLeft}</p>
           </div>
           <div className="form-group">
             <label htmlFor="body">Body</label>
@@ -87,11 +110,14 @@ const CreatePost = ({ createPost, history }) => {
               className="form-control"
               id="body"
               rows="3"
+              placeholder="Post Content"
               value={body}
               name="body"
-              onChange={onChange}
+              onChange={bodyOnChange}
               required
+              maxLength="150"
             ></textarea>
+            <p className="text-right">Characters left: {bodyCharLeft}</p>
           </div>
           <div className="container-fluid m-0 p-0 text-center text-md-left">
             <button className="btn btn-primary mr-3">Post</button>

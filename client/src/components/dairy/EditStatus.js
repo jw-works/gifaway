@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const EditSatus = ({
   createProfile,
@@ -17,9 +17,9 @@ const EditSatus = ({
   useEffect(() => {
     getCurrentProfile();
     setstate({
-      phrase: loading || !profile.phrase ? "" : profile.phrase
+      phrase: profile.phrase
     });
-  }, [getCurrentProfile, loading, profile.phrase]);
+  }, [getCurrentProfile, profile.phrase]);
 
   const { phrase } = state;
 
@@ -51,7 +51,12 @@ const EditSatus = ({
           onChange={onChange}
         ></textarea>
         <br />
-        <button className="btn btn-primary">Set Status</button>
+        <div className="container">
+          <button className="btn btn-primary mr-3">Set Status</button>
+          <Link className="btn btn-primary" to="/diary">
+            Cancel
+          </Link>
+        </div>
       </form>
     </div>
   );
