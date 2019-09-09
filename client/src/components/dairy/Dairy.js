@@ -56,10 +56,10 @@ const Dairy = ({
         </div>
       </div>
       <div className="container mt-4">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
+        <ul className="nav nav-tabs" id="myTab" role="tablist">
+          <li className="nav-item">
             <a
-              class="nav-link active"
+              className="nav-link active"
               id="home-tab"
               data-toggle="tab"
               href="#home"
@@ -70,9 +70,9 @@ const Dairy = ({
               Your posts
             </a>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <a
-              class="nav-link"
+              className="nav-link"
               id="profile-tab"
               data-toggle="tab"
               href="#profile"
@@ -84,34 +84,35 @@ const Dairy = ({
             </a>
           </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div className="tab-content" id="myTabContent">
           <div
-            class="tab-pane fade show active"
+            className="tab-pane fade show active"
             id="home"
             role="tabpanel"
             aria-labelledby="home-tab"
           >
             {!loading && isAuthenticated && profile !== null && (
               <div className="container mt-5">
-                <div class="card-columns">
+                <div className="card-columns">
                   {posts.map(post => {
                     if (post.user === profile.user._id) {
                       return <PostItem key={post._id} post={post} />;
                     }
+                    return null;
                   })}
                 </div>
               </div>
             )}
           </div>
           <div
-            class="tab-pane fade"
+            className="tab-pane fade"
             id="profile"
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
             {!loading && isAuthenticated && profile !== null && (
               <div className="container mt-5">
-                <div class="card-columns">
+                <div className="card-columns">
                   {posts.map(post => {
                     if (
                       post.likes.filter(like => like.user === profile.user._id)
@@ -119,6 +120,7 @@ const Dairy = ({
                     ) {
                       return <PostItem key={post._id} post={post} />;
                     }
+                    return null;
                   })}
                 </div>
               </div>

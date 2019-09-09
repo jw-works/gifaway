@@ -60,10 +60,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             name="username"
             value={username}
             onChange={e => onChange(e)}
+            maxLength={20}
+            required
           />
           <small id="usernameHelp" className="form-text text-muted">
             This will be unique to yourself and will be shown as your name on
-            this website.
+            this website. Maximum 15 characters long.
           </small>
         </div>
         <div className="form-group">
@@ -77,6 +79,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             name="email"
             value={email}
             onChange={e => onChange(e)}
+            required
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -93,6 +96,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             name="password"
             value={password}
             onChange={e => onChange(e)}
+            required
+            minLength={8}
           />
           <small id="passwordHelp" className="form-text text-muted">
             Minimum 8 characters
@@ -109,6 +114,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             name="password2"
             value={password2}
             onChange={e => onChange(e)}
+            required
+            minLength={8}
           />
           <small id="password2Help" className="form-text text-muted">
             Minimum 8 characters

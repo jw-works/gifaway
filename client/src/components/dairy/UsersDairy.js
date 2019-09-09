@@ -33,6 +33,7 @@ const UsersDairy = ({
               if (post.user === profile.user._id) {
                 return <PostItem key={post._id} post={post} />;
               }
+              return null;
             })}
           </div>
         </div>

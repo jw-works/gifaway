@@ -1,10 +1,11 @@
 import axios from "axios";
 import { FETCH_GIFS, FETCH_ERROR } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import config from "../config";
 
 //Get Gifs
 export const getGifs = searchTerm => async dispatch => {
-  const api_key = "VeDb98Oa9mfgYQzxRe4DU4TRW97TGU1O";
+  const api_key = config.GIPHY_API_KEY;
 
   try {
     delete axios.defaults.headers.common["x-auth-token"];

@@ -15,7 +15,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   ) : (
     <Fragment>
       <div className="container mt-5">
-        <div class="card-columns">
+        <div className="card-columns">
           {posts.map(post => (
             <PostItem key={post._id} post={post} />
           ))}

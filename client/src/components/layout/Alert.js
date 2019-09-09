@@ -6,7 +6,10 @@ const Alert = ({ alerts }) =>
   alerts !== null &&
   alerts.length > 0 &&
   alerts.map(alert => (
-    <div key={alert.id} className={`bg-${alert.alertType} container p-3 mb-2`}>
+    <div
+      key={alert.id}
+      className={`bg-${alert.alertType} container p-3 mb-2 text-light`}
+    >
       {alert.msg}
     </div>
   ));

@@ -82,10 +82,18 @@ const PostItem = ({
               </small>
             </footer>
             <p className="card-text d-flex flex-row justify-content-between">
-              <small className="text-muted">
-                {likes.length} people felt this post | Posted on{" "}
-                <Moment format="DD/MM">{date}</Moment>
-              </small>
+              {likes.length === 1 ? (
+                <small className="text-muted">
+                  {likes.length} person felt this post | Posted on{" "}
+                  <Moment format="DD/MM">{date}</Moment>
+                </small>
+              ) : (
+                <small className="text-muted">
+                  {likes.length} people felt this post | Posted on{" "}
+                  <Moment format="DD/MM">{date}</Moment>
+                </small>
+              )}
+
               <small className="text-muted">
                 {!auth.loading && !auth.isAuthenticated ? (
                   <button className="btn btn-light" onClick={onClickRedirect}>
@@ -112,20 +120,20 @@ const PostItem = ({
   } else {
     return (
       <Fragment>
-        <div class="card PostItem">
-          <div class="card-body">
+        <div className="card PostItem">
+          <div className="card-body">
             <div className="container p-0 m-0 d-flex flex-row justify-content-between">
-              <h5 class="card-title">{title}</h5>
+              <h5 className="card-title">{title}</h5>
               {!auth.loading && auth.isAuthenticated
                 ? user === auth.user._id && (
                     <div>
                       {" "}
                       <i
-                        class="fas fa-edit"
+                        className="fas fa-edit"
                         style={{ cursor: "pointer" }}
                       ></i>{" "}
                       <i
-                        class="far fa-trash-alt"
+                        className="far fa-trash-alt"
                         onClick={delete_post}
                         style={{ cursor: "pointer" }}
                       ></i>
@@ -133,8 +141,8 @@ const PostItem = ({
                   )
                 : null}
             </div>
-            <p class="card-text">{body}</p>
-            <footer class="blockquote-footer mb-2 text-right">
+            <p className="card-text">{body}</p>
+            <footer className="blockquote-footer mb-2 text-right">
               <small>
                 Posted by{" "}
                 {!auth.loading &&
@@ -148,26 +156,26 @@ const PostItem = ({
                 )}
               </small>
             </footer>
-            <p class="card-text d-flex flex-row justify-content-between">
-              <small class="text-muted">
+            <p className="card-text d-flex flex-row justify-content-between">
+              <small className="text-muted">
                 {likes.length} people felt this post | Posted on{" "}
                 <Moment format="DD/MM">{date}</Moment>
               </small>
-              <small class="text-muted">
+              <small className="text-muted">
                 {!auth.loading && !auth.isAuthenticated ? (
                   <button className="btn btn-light" onClick={onClickRedirect}>
-                    <i class="far fa-heart"></i>
+                    <i className="far fa-heart"></i>
                   </button>
                 ) : !auth.loading &&
                   auth.isAuthenticated &&
                   likes.filter(like => like.user === auth.user._id).length >
                     0 ? (
                   <button className="btn btn-light" onClick={onClickUnlike}>
-                    <i class="fas fa-heart"></i>
+                    <i className="fas fa-heart"></i>
                   </button>
                 ) : (
                   <button className="btn btn-light" onClick={onClickLike}>
-                    <i class="far fa-heart"></i>
+                    <i className="far fa-heart"></i>
                   </button>
                 )}
               </small>
