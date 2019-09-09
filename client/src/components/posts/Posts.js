@@ -28,7 +28,7 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
         </div>
       </div>
 
-      <div className="container text-center">
+      <div className="container text-center mb-5">
         {count !== pages ? (
           <button
             className="btn btn-outline-primary"
@@ -37,7 +37,9 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
             More...
           </button>
         ) : (
-          <p className="lead">End of results...</p>
+          <div className="container text-center mt-5 mb-5">
+            <p className="lead">That's all folks!</p>
+          </div>
         )}
       </div>
     </Fragment>

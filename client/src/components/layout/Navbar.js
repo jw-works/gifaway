@@ -71,7 +71,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light Navbar">
         <Link className="navbar-brand" to="/">
-          Gifoetry
+          Gifaway
         </Link>
         <button
           className="navbar-toggler"

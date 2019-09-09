@@ -1,7 +1,7 @@
 {
-  "name": "gifoetry",
+  "name": "gifaway",
   "version": "1.0.0",
-  "description": "Social network for writers",
+  "description": "Social networking with gifs",
   "main": "server.js",
   "scripts": {
     "start": "node server",
