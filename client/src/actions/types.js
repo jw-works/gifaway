@@ -16,3 +16,4 @@ export const ADD_LIKE = "ADD_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
 export const FETCH_GIFS = "FETCH_GIFS";
 export const FETCH_ERROR = "FETCH_ERROR";
+export const GET_USER_PROFILE = "GET_USER_PROFILE";

@@ -25,6 +25,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li className="nav-item">
+        <Link className="nav-link" to="/create-post">
+          Create Post
+        </Link>
+      </li>
+      <li className="nav-item">
         <Link className="nav-link" to="#!" onClick={onClick}>
           Logout
         </Link>

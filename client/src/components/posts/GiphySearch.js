@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { getGifs } from "../../actions/giphy";
 import { createPost } from "../../actions/post";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 const GiphySearch = ({
   giphy: { giphyResults, loading },
   getGifs,
-  createPost
+  createPost,
+  history
 }) => {
   const [state, setstate] = useState({
     showGifs: true,
@@ -51,7 +53,7 @@ const GiphySearch = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    createPost({ gif, title, body });
+    createPost({ gif, title, body }, history);
   };
 
   return (
@@ -156,4 +158,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getGifs, createPost }
-)(GiphySearch);
+)(withRouter(GiphySearch));

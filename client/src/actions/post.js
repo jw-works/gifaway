@@ -71,7 +71,7 @@ export const unlikePost = (
 };
 
 //Create a post
-export const createPost = formData => async dispatch => {
+export const createPost = (formData, history) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -82,10 +82,12 @@ export const createPost = formData => async dispatch => {
     await axios.post("/api/posts/", formData, config);
 
     getPosts();
+
+    history.push("/explore");
   } catch (error) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: error.message }
     });
   }
 };
@@ -97,6 +99,9 @@ export const deletePost = postId => async dispatch => {
 
     getPosts();
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
   }
 };

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { likePost, unlikePost, deletePost } from "../../actions/post";
@@ -53,7 +53,10 @@ const PostItem = ({
                 ? user === auth.user._id && (
                     <div>
                       {" "}
-                      <i className="fas fa-edit"></i>{" "}
+                      <i
+                        className="fas fa-edit"
+                        style={{ cursor: "pointer" }}
+                      ></i>{" "}
                       <i
                         className="far fa-trash-alt"
                         onClick={delete_post}
@@ -66,7 +69,16 @@ const PostItem = ({
             <p className="card-text">{body}</p>
             <footer className="blockquote-footer mb-2 text-right">
               <small>
-                Posted by <cite title="Source Title">{name}</cite>
+                Posted by{" "}
+                {!auth.loading &&
+                auth.isAuthenticated &&
+                user === auth.user._id ? (
+                  <cite title="Source Title">{name}</cite>
+                ) : (
+                  <Link to={`/user/${user}`}>
+                    <cite title="Source Title">{name}</cite>
+                  </Link>
+                )}
               </small>
             </footer>
             <p className="card-text d-flex flex-row justify-content-between">
@@ -108,8 +120,15 @@ const PostItem = ({
                 ? user === auth.user._id && (
                     <div>
                       {" "}
-                      <i class="fas fa-edit"></i>{" "}
-                      <i class="far fa-trash-alt"></i>
+                      <i
+                        class="fas fa-edit"
+                        style={{ cursor: "pointer" }}
+                      ></i>{" "}
+                      <i
+                        class="far fa-trash-alt"
+                        onClick={delete_post}
+                        style={{ cursor: "pointer" }}
+                      ></i>
                     </div>
                   )
                 : null}
@@ -117,7 +136,16 @@ const PostItem = ({
             <p class="card-text">{body}</p>
             <footer class="blockquote-footer mb-2 text-right">
               <small>
-                Posted by <cite title="Source Title">{name}</cite>
+                Posted by{" "}
+                {!auth.loading &&
+                auth.isAuthenticated &&
+                user === auth.user._id ? (
+                  <cite title="Source Title">{name}</cite>
+                ) : (
+                  <Link to={`/user/${user}`}>
+                    <cite title="Source Title">{name}</cite>
+                  </Link>
+                )}
               </small>
             </footer>
             <p class="card-text d-flex flex-row justify-content-between">

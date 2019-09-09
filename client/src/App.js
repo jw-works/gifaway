@@ -6,6 +6,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import Dairy from "./components/dairy/Dairy";
+import UserDairy from "./components/dairy/UsersDairy";
 import Posts from "./components/posts/Posts";
 import CreatePost from "./components/posts/CreatePost";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -42,6 +43,7 @@ const App = () => {
             <PrivateRoute exact path="/diary" component={Dairy} />
             <PrivateRoute exact path="/edit-status" component={EditStatus} />
             <PrivateRoute exact path="/create-post" component={CreatePost} />
+            <PrivateRoute exact path="/user/:id" component={UserDairy} />
             <Route exact path="/set-status" component={SetStatus} />
             <Route exact path="/explore" component={Posts} />
           </Switch>

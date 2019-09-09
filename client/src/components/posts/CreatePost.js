@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
 import GiphySearch from "./GiphySearch";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createPost } from "../../actions/post";
 import PropTypes from "prop-types";
 
-const CreatePost = ({ createPost }) => {
+const CreatePost = ({ createPost, history }) => {
   const [state, setstate] = useState({
     searchGif: false,
     gif: "",
@@ -32,9 +33,10 @@ const CreatePost = ({ createPost }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (gif) {
-      createPost({ gif, title, body });
+      createPost({ gif, title, body }, history);
+    } else {
+      createPost({ title, body }, history);
     }
-    createPost({ title, body });
   };
 
   return !searchGif ? (
@@ -109,4 +111,4 @@ CreatePost.protoTypes = {
 export default connect(
   null,
   { createPost }
-)(CreatePost);
+)(withRouter(CreatePost));
