@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const SetStatus = ({ createProfile, history }) => {
   const [state, setstate] = useState({
-    phrase: ""
+    phrase: "",
+    bodyCharLeft: 100
   });
 
-  const { phrase } = state;
+  const { phrase, bodyCharLeft } = state;
 
   const onChange = e => {
+    const currentLetterCount = e.target.value.length;
+    const lettersLeftCount = 100 - currentLetterCount;
     setstate({
-      phrase: e.target.value
+      phrase: e.target.value,
+      bodyCharLeft: lettersLeftCount
     });
   };
 
@@ -25,11 +29,7 @@ const SetStatus = ({ createProfile, history }) => {
   return (
     <div className="container text-center mt-5 mb-5">
       <form onSubmit={onSubmit}>
-        <label htmlFor="setStatus" className="lead">
-          Set status to your fav quote, excerpt, phrase or anything you like.
-          But remember to keep it short!
-        </label>
-        <br />
+        <h1 className="display-4">Set Status</h1>
         <textarea
           name="status"
           id="setStatus"
@@ -37,9 +37,19 @@ const SetStatus = ({ createProfile, history }) => {
           rows="10"
           value={phrase}
           onChange={onChange}
+          placeholder="Set your status to a fav quote, excerpt, phrase or anything you like.
+          But remember to keep it short!"
+          required
+          maxLength="100"
         ></textarea>
+        <p className="text-center">Characters left: {bodyCharLeft}</p>
         <br />
-        <button className="btn btn-primary">Set Status</button>
+        <div className="container text-center">
+          <button className="btn btn-primary mr-3">Set Status</button>
+          <Link className="btn btn-primary" to="/diary">
+            Cancel
+          </Link>
+        </div>
       </form>
     </div>
   );

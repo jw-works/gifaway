@@ -8,10 +8,11 @@ const EditSatus = ({
   createProfile,
   history,
   getCurrentProfile,
-  profile: { profile, loading }
+  profile: { profile }
 }) => {
   const [state, setstate] = useState({
-    phrase: ""
+    phrase: "",
+    bodyCharLeft: 100
   });
 
   useEffect(() => {
@@ -21,11 +22,14 @@ const EditSatus = ({
     });
   }, [getCurrentProfile, profile.phrase]);
 
-  const { phrase } = state;
+  const { phrase, bodyCharLeft } = state;
 
   const onChange = e => {
+    const currentLetterCount = e.target.value.length;
+    const lettersLeftCount = 100 - currentLetterCount;
     setstate({
-      phrase: e.target.value
+      phrase: e.target.value,
+      bodyCharLeft: lettersLeftCount
     });
   };
 
@@ -49,7 +53,10 @@ const EditSatus = ({
           rows="10"
           value={phrase}
           onChange={onChange}
+          required
+          maxLength="100"
         ></textarea>
+        <p className="text-center">Characters left: {bodyCharLeft}</p>
         <br />
         <div className="container">
           <button className="btn btn-primary mr-3">Set Status</button>
