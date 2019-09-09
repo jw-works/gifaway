@@ -18,3 +18,6 @@ export const FETCH_GIFS = "FETCH_GIFS";
 export const FETCH_ERROR = "FETCH_ERROR";
 export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const GET_POST = "GET_POST";
+export const GET_POSTS_WITH_PAGINATION = "GET_POSTS_WITH_PAGINATION";
+export const CLEAR_POSTS = "CLEAR_POSTS";
+export const SET_PAGES = "SET_PAGES";

@@ -3,7 +3,10 @@ import {
   POST_ERROR,
   ADD_LIKE,
   REMOVE_LIKE,
-  GET_POST
+  GET_POST,
+  GET_POSTS_WITH_PAGINATION,
+  CLEAR_POSTS,
+  SET_PAGES
 } from "../actions/types";
 import axios from "axios";
 
@@ -23,16 +26,47 @@ export const getPost = postID => async dispatch => {
   }
 };
 
-//Get Posts
+//Get all posts
 export const getPosts = () => async dispatch => {
   try {
-    const res = await axios.get("/api/posts");
+    const res = await axios.get(`/api/posts/`);
 
     dispatch({
       type: GET_POSTS,
       payload: res.data
     });
   } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+//Get Posts with pagination
+export const getPostsWithPagination = pageNumber => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${pageNumber}`);
+
+    if (pageNumber === 1) {
+      dispatch({
+        type: CLEAR_POSTS,
+        payload: res.data.pages
+      });
+      dispatch({
+        type: SET_PAGES,
+        payload: res.data.pages
+      });
+    }
+
+    res.data.posts.map(post => {
+      return dispatch({
+        type: GET_POSTS_WITH_PAGINATION,
+        payload: post
+      });
+    });
+  } catch (error) {
+    console.log(error.message);
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status }

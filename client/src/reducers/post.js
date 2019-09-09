@@ -3,11 +3,15 @@ import {
   POST_ERROR,
   ADD_LIKE,
   REMOVE_LIKE,
-  GET_POST
+  GET_POST,
+  GET_POSTS_WITH_PAGINATION,
+  CLEAR_POSTS,
+  SET_PAGES
 } from "../actions/types";
 
 const initialState = {
   posts: [],
+  pages: null,
   post: {},
   loading: true,
   error: {}
@@ -21,6 +25,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: payload,
+        loading: false
+      };
+
+    case GET_POSTS_WITH_PAGINATION:
+      return {
+        ...state,
+        posts: [...state.posts, payload],
         loading: false
       };
 
@@ -56,6 +67,18 @@ export default function(state = initialState, action) {
         loading: false
       };
 
+    case CLEAR_POSTS:
+      return {
+        ...state,
+        posts: [],
+        loading: false
+      };
+
+    case SET_PAGES:
+      return {
+        ...state,
+        pages: payload
+      };
     default:
       return state;
   }

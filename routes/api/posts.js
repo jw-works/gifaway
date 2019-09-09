@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const authMiddlware = require("../../middleware/auth");
-
 const Post = require("../../models/Posts");
 const User = require("../../models/User");
 
@@ -103,14 +102,37 @@ router.put(
   }
 );
 
-//@route GET api/posts
+//@route GET api/posts/
 //@desc Get all the posts
 //@access Public
 
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
+
     res.json(posts);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route GET api/posts/:pageNumber
+//@desc Get all the posts with pagination
+//@access Public
+
+router.get("/:page", async (req, res) => {
+  try {
+    const posts = await Post.paginate(
+      {},
+      {
+        page: `${req.params.page}`,
+        limit: 2,
+        sort: { date: -1 }
+      }
+    );
+
+    res.json({ posts: posts.docs, pages: posts.pages });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");

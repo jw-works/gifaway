@@ -1,14 +1,20 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getPosts } from "../../actions/post";
+import { getPostsWithPagination } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
+  const [state, setstate] = useState({
+    count: 1
+  });
+
+  const { count } = state;
+
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    getPostsWithPagination(count);
+  }, [getPostsWithPagination, count]);
 
   return loading ? (
     <Spinner />
@@ -21,12 +27,25 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
           ))}
         </div>
       </div>
+
+      <div className="container text-center">
+        {count !== pages ? (
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => setstate({ count: count + 1 })}
+          >
+            More...
+          </button>
+        ) : (
+          <p className="lead">End of results...</p>
+        )}
+      </div>
     </Fragment>
   );
 };
 
 Posts.protoTypes = {
-  getPosts: PropTypes.func.isRequired,
+  getPostsWithPagination: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired
 };
 
@@ -36,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPostsWithPagination }
 )(Posts);
