@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { likePost, unlikePost, deletePost } from "../../actions/post";
+import { likePost, unlikePost, deletePost, editPost } from "../../actions/post";
 
 const PostItem = ({
   deletePost,
+  editPost,
   likePost,
   unlikePost,
   history,
@@ -53,10 +54,11 @@ const PostItem = ({
                 ? user === auth.user._id && (
                     <div>
                       {" "}
-                      <i
+                      <Link
                         className="fas fa-edit"
-                        style={{ cursor: "pointer" }}
-                      ></i>{" "}
+                        style={{ cursor: "pointer", color: "black" }}
+                        to={`/post/${_id}`}
+                      ></Link>{" "}
                       <i
                         className="far fa-trash-alt"
                         onClick={delete_post}
@@ -128,10 +130,11 @@ const PostItem = ({
                 ? user === auth.user._id && (
                     <div>
                       {" "}
-                      <i
+                      <Link
                         className="fas fa-edit"
-                        style={{ cursor: "pointer" }}
-                      ></i>{" "}
+                        style={{ cursor: "pointer", color: "black" }}
+                        to={`/post/${_id}`}
+                      ></Link>{" "}
                       <i
                         className="far fa-trash-alt"
                         onClick={delete_post}
@@ -192,7 +195,8 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired
+  deletePost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -201,5 +205,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { likePost, unlikePost, deletePost }
+  { likePost, unlikePost, deletePost, editPost }
 )(withRouter(PostItem));

@@ -1,5 +1,27 @@
-import { GET_POSTS, POST_ERROR, ADD_LIKE, REMOVE_LIKE } from "../actions/types";
+import {
+  GET_POSTS,
+  POST_ERROR,
+  ADD_LIKE,
+  REMOVE_LIKE,
+  GET_POST
+} from "../actions/types";
 import axios from "axios";
+
+//Get Single Post
+export const getPost = postID => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/post/${postID}`);
+    dispatch({
+      type: GET_POST,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
 
 //Get Posts
 export const getPosts = () => async dispatch => {
@@ -98,6 +120,26 @@ export const deletePost = postId => async dispatch => {
     await axios.delete(`api/posts/${postId}`);
 
     getPosts();
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+//Edit Post
+export const editPost = (postId, formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    await axios.put(`/api/posts/post/${postId}`, formData, config);
+
+    history.push("/diary");
   } catch (error) {
     dispatch({
       type: POST_ERROR,

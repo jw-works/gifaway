@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
 const GiphySearch = ({
-  giphy: { giphyResults, loading },
+  giphy: { giphyResults },
   getGifs,
   createPost,
   history

@@ -53,6 +53,56 @@ router.post(
   }
 );
 
+//@route PUT api/posts/post/:id
+//@desc Update a post
+//@access Private
+
+router.put(
+  "/post/:id",
+  [
+    authMiddlware,
+    [
+      check("title", "Please enter a title for the post")
+        .not()
+        .isEmpty(),
+      check("body", "Please enter the content of the post")
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { gif, title, body } = req.body;
+
+    const postFields = {};
+    if (gif) postFields.gif = gif;
+    postFields.title = title;
+    postFields.body = body;
+
+    try {
+      let post = await Post.findById(req.params.id);
+
+      if (post) {
+        post = await Post.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: postFields },
+          { new: true }
+        );
+        return res.json(post);
+      } else {
+        return res.status(404).json({ msg: "Post does not exist" });
+      }
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 //@route GET api/posts
 //@desc Get all the posts
 //@access Public
@@ -61,6 +111,19 @@ router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
     res.json(posts);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route GET api/posts/post/:id
+//@desc Get a single post
+//@access Private
+router.get("/post/:id", authMiddlware, async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id });
+    res.json(post);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");
