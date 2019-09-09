@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getGifs } from "../../actions/giphy";
 import { createPost } from "../../actions/post";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const GiphySearch = ({
   giphy: { giphyResults },
@@ -137,7 +137,10 @@ const GiphySearch = ({
             ></textarea>
           </div>
           <div className="container-fluid m-0 p-0 text-center text-md-left">
-            <button className="btn btn-primary">Post</button>
+            <button className="btn btn-primary mr-3">Post</button>
+            <Link className="btn btn-primary" to="/diary">
+              Cancel
+            </Link>
           </div>
         </form>
       </div>
