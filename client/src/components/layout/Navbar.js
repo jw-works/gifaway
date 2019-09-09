@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -15,54 +15,54 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul className="navbar-nav ml-auto text-center">
       <li className="nav-item">
-        <Link className="nav-link" to="/explore">
+        <NavLink className="nav-link" exact to="/explore">
           Explore
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/diary">
+        <NavLink className="nav-link" exact to="/diary">
           My Diary
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/create-post">
+        <NavLink className="nav-link" exact to="/create-post">
           Create Post
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="#!" onClick={onClick}>
+        <NavLink className="nav-link" exact to="#!" onClick={onClick}>
           Logout
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );
 
   const guestLinks = (
     <ul className="navbar-nav ml-auto text-center">
-      <li className="nav-item active">
-        <Link className="nav-link" to="/">
+      <li className="nav-item">
+        <NavLink className="nav-link" exact to="/">
           Home
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/explore">
+        <NavLink className="nav-link" exact to="/explore">
           Explore
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/login">
+        <NavLink className="nav-link" exact to="/login">
           Login
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/register">
+        <NavLink className="nav-link" exact to="/register">
           Register
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/about">
+        <NavLink className="nav-link" exact to="/about">
           About
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );
@@ -84,7 +84,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div
+          className="collapse navbar-collapse"
+          id="navbarNav"
+          data-toggle="collapse"
+          data-target="#navbarNav.show"
+        >
           {!loading && (
             <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
           )}
