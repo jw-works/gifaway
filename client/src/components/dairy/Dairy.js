@@ -7,6 +7,7 @@ import Spinner from "../layout/Spinner";
 import "./Diary.css";
 import PostItem from "../posts/PostItem";
 import { getPosts } from "../../actions/post";
+import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 
 const Dairy = ({
   getCurrentProfile,
@@ -101,6 +102,7 @@ const Dairy = ({
                     return null;
                   })}
                 </div>
+                <ScrollUpButton />
               </div>
             )}
           </div>
@@ -123,6 +125,7 @@ const Dairy = ({
                     return null;
                   })}
                 </div>
+                <ScrollUpButton />
               </div>
             )}
           </div>

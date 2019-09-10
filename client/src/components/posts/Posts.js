@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getPostsWithPagination } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
+import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 
 const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
   const [state, setstate] = useState({
@@ -20,12 +21,13 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <div className="container mt-5">
+      <div className="container mt-5 Posts">
         <div className="card-columns">
           {posts.map(post => (
             <PostItem key={post._id} post={post} />
           ))}
         </div>
+        <ScrollUpButton ContainerClassName="scroll" />
       </div>
 
       <div className="container text-center mb-5">
