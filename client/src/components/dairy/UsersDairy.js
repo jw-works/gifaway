@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { getUserProfile } from "../../actions/profile";
+import { getPosts } from "../../actions/post";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import PostItem from "../posts/PostItem";
 
 const UsersDairy = ({
+  getPosts,
   getUserProfile,
   profile: { loading, profile },
   match,
   posts
 }) => {
   useEffect(() => {
+    getPosts();
     getUserProfile(match.params.id);
     window.scroll(0, 0);
-  }, [getUserProfile, match.params.id]);
+  }, [getUserProfile, match.params.id, getPosts]);
 
   if (loading) {
     return <Spinner />;
@@ -51,7 +54,8 @@ const UsersDairy = ({
 UsersDairy.propTypes = {
   profile: PropTypes.object.isRequired,
   getUserProfile: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  getPosts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -61,5 +65,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUserProfile }
+  { getUserProfile, getPosts }
 )(UsersDairy);
