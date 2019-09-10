@@ -6,6 +6,7 @@ import { getPostsWithPagination } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
+import "./Posts.css";
 
 const Posts = ({
   isAuthenticated,
@@ -22,6 +23,11 @@ const Posts = ({
     getPostsWithPagination(count);
   }, [getPostsWithPagination, count]);
 
+  const refresh = e => {
+    e.preventDefault();
+    window.location.reload();
+  };
+
   return loading ? (
     <Spinner />
   ) : (
@@ -31,7 +37,7 @@ const Posts = ({
           <div className="container mt-5 mb-4 text-center text-justify border p-3">
             <p className="lead">
               Explore the posts made by our users. <br /> Want to join our
-              community and share posts that other people can relate?{" "}
+              community and share posts that people can relate?{" "}
             </p>
             <div className="container">
               <Link to="/login" className="mr-3 btn btn-primary">
@@ -43,7 +49,11 @@ const Posts = ({
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="container text-right mt-5 mr-5 refresh-button">
+          <i class="fas fa-sync-alt" onClick={refresh}></i>
+        </div>
+      )}
 
       <div className="container mt-5 Posts">
         <div className="card-columns">

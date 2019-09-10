@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profile";
+import SetStatus from "./SetStatus";
 import Spinner from "../layout/Spinner";
 import "./Diary.css";
 import PostItem from "../posts/PostItem";
@@ -26,34 +27,22 @@ const Dairy = ({
 
   return loading && profile === null ? (
     <Spinner />
+  ) : profile === null ? (
+    <SetStatus />
   ) : (
     <div>
       <div className="container text-center mt-5 Diary">
         <div className="displayname text-center">
           <h1 className="display-1">@{user && user.username}</h1>
-          {profile !== null ? (
-            <p className="mt-3">
-              {profile.phrase} <br />
-              <Link className="btn btn-primary m-2" to="/edit-status">
-                Edit Status
-              </Link>
-              <Link className="btn btn-primary m-2" to="/create-post">
-                Create Post
-              </Link>
-            </p>
-          ) : (
-            <div>
-              <p>
-                You do not have a status. <br />
-                <Link className="btn btn-primary m-2" to="/set-status">
-                  Set Status
-                </Link>
-                <Link className="btn btn-primary m-2" to="/create-post">
-                  Create Post
-                </Link>
-              </p>
-            </div>
-          )}
+          <p className="mt-3">
+            {profile.phrase} <br />
+            <Link className="btn btn-primary m-2" to="/edit-status">
+              Edit Status
+            </Link>
+            <Link className="btn btn-primary m-2" to="/create-post">
+              Create Post
+            </Link>
+          </p>
         </div>
       </div>
       <div className="container mt-4">

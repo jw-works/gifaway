@@ -29,7 +29,9 @@ const SetStatus = ({ createProfile, history }) => {
   return (
     <div className="container text-center mt-5 mb-5">
       <form onSubmit={onSubmit}>
-        <h1 className="display-4">Set Status</h1>
+        <h1 className="lead mt-5 mb-3">
+          <b>Set Status to activate your profile</b>
+        </h1>
         <textarea
           name="status"
           id="setStatus"

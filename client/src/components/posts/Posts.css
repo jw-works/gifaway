@@ -1,0 +1,13 @@
+.refresh-button i {
+  font-size: 1.3rem;
+  margin-right: 12%;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .refresh-button i {
+    font-size: 1.3rem;
+    margin-right: 5%;
+    cursor: pointer;
+  }
+}

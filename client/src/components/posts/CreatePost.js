@@ -4,8 +4,9 @@ import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createPost } from "../../actions/post";
 import PropTypes from "prop-types";
+import SetStatus from "../dairy/SetStatus";
 
-const CreatePost = ({ createPost, history }) => {
+const CreatePost = ({ createPost, history, profile: { profile } }) => {
   const [state, setstate] = useState({
     searchGif: false,
     gif: "",
@@ -60,7 +61,9 @@ const CreatePost = ({ createPost, history }) => {
     }
   };
 
-  return !searchGif ? (
+  return profile === null ? (
+    <SetStatus />
+  ) : !searchGif ? (
     <Fragment>
       <div className="container mt-5 mb-5">
         <div className="container text-center mb-5">
@@ -134,10 +137,15 @@ const CreatePost = ({ createPost, history }) => {
 };
 
 CreatePost.protoTypes = {
-  createPost: PropTypes.func.isRequired
+  createPost: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createPost }
 )(withRouter(CreatePost));
