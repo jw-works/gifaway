@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPostsWithPagination } from "../../actions/post";
 import Spinner from "../layout/Spinner";
@@ -21,6 +22,22 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
     <Spinner />
   ) : (
     <Fragment>
+      <div className="container">
+        <div className="container mt-5 mb-4 text-center text-justify border p-3">
+          <p className="lead">
+            Explore the posts made by our users. <br /> Want to join our
+            community and share posts that other people can relate?{" "}
+          </p>
+          <div className="container">
+            <Link to="/login" className="mr-3 btn btn-primary">
+              Login
+            </Link>
+            <Link to="/register" className="btn btn-primary">
+              Register
+            </Link>
+          </div>
+        </div>
+      </div>
       <div className="container mt-5 Posts">
         <div className="card-columns">
           {posts.map(post => (
