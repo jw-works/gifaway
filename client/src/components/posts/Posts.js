@@ -7,7 +7,11 @@ import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 
-const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
+const Posts = ({
+  isAuthenticated,
+  getPostsWithPagination,
+  post: { posts, loading, pages }
+}) => {
   const [state, setstate] = useState({
     count: 1
   });
@@ -22,22 +26,25 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <div className="container">
-        <div className="container mt-5 mb-4 text-center text-justify border p-3">
-          <p className="lead">
-            Explore the posts made by our users. <br /> Want to join our
-            community and share posts that other people can relate?{" "}
-          </p>
-          <div className="container">
-            <Link to="/login" className="mr-3 btn btn-primary">
-              Login
-            </Link>
-            <Link to="/register" className="btn btn-primary">
-              Register
-            </Link>
+      {!isAuthenticated ? (
+        <div className="container">
+          <div className="container mt-5 mb-4 text-center text-justify border p-3">
+            <p className="lead">
+              Explore the posts made by our users. <br /> Want to join our
+              community and share posts that other people can relate?{" "}
+            </p>
+            <div className="container">
+              <Link to="/login" className="mr-3 btn btn-primary">
+                Login
+              </Link>
+              <Link to="/register" className="btn btn-primary">
+                Register
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
+
       <div className="container mt-5 Posts">
         <div className="card-columns">
           {posts.map(post => (
@@ -67,11 +74,13 @@ const Posts = ({ getPostsWithPagination, post: { posts, loading, pages } }) => {
 
 Posts.protoTypes = {
   getPostsWithPagination: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
