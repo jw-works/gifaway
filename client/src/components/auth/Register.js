@@ -44,7 +44,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <div className="container mt-md-5 mt-2 p-3 Register">
+    <div className="container mt-md-5 mt-2 p-3 Register mb-md-5">
       <div className="container text-center mb-3 title">
         <h1>Register</h1>
       </div>
