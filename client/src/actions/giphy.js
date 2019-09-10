@@ -11,7 +11,7 @@ export const getGifs = searchTerm => async dispatch => {
     delete axios.defaults.headers.common["x-auth-token"];
 
     const res = await axios.get(
-      `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${api_key}&limit=100&rating=g`
+      `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${api_key}&limit=100&rating=g`
     );
 
     setAuthToken(localStorage.token);
