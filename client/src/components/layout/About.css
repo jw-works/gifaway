@@ -1,0 +1,25 @@
+.About .card {
+  width: 30rem;
+}
+
+.About .card-text {
+  font-size: 1.4rem;
+}
+
+.About .fa-hand-spock {
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .About .card {
+    width: 22rem;
+  }
+
+  .About .card-text {
+    font-size: 1rem;
+  }
+
+  .About .fa-hand-spock {
+    font-size: 1.5rem;
+  }
+}

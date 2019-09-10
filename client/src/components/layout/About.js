@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
+import "./About.css";
 
 const About = () => {
   return (
     <Fragment>
-      <div className="container-fluid mt-5 d-flex flex-row justify-content-center">
-        <div className="card" style={{ width: "18rem" }}>
+      <div className="container-fluid mt-5 d-flex flex-row justify-content-center About">
+        <div className="card">
           <img
             src="https://media.giphy.com/media/xT5LMPbo3H3BLIdL8s/giphy.gif"
             className="card-img-top"
